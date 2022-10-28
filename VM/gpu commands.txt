@@ -1,0 +1,1 @@
+0x0000 ~ Render rect with 0x0000 - 0xffff color

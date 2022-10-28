@@ -1,0 +1,78 @@
+jmp main;
+
+label add_x;
+add r6 r5 r6;
+return;
+
+label add_y;
+add r7 r5 r7;
+return;
+
+label sub_x;
+sub r6 r5 r6;
+return;
+
+label sub_y;
+sub r7 r5 r7;
+return;
+
+
+label sub_x_set;
+put 0x1 r3;
+return;
+
+label sub_y_set;
+put 0x1 r4;
+return;
+
+
+label add_x_set;
+put 0x0 r3;
+return;
+
+label add_y_set;
+put 0x0 r4;
+return;
+
+
+label main;
+put 0x1 a0xeffe;
+put 0x8 a0xefff;
+
+put 0x0 a0xf000;
+
+put 0x0 a0xf001;
+put 0x0 a0xf002;
+put 0xa a0xf003;
+put 0xa a0xf004;
+
+put 0x0000 a0xf005;
+put 0xffff a0xf006;
+put 0x0000 a0xf007;
+put 0xffff a0xf008;
+
+put 0x0 r3;
+put 0x0 r4;
+
+put 0xa r5;
+
+label loop;
+jmpif r6 > 0x4f6 sub_x_set;
+jmpif r7 > 0x3f6 sub_y_set;
+
+
+jmpif r6 > 0xfff0 add_x_set;
+jmpif r7 > 0xfff0 add_y_set;
+
+
+jmpif r3 = 0x0 add_x;
+jmpif r4 = 0x0 add_y;
+
+
+jmpif r3 = 0x1 sub_x;
+jmpif r4 = 0x1 sub_y;
+
+put r6 a0xf001;
+put r7 a0xf002;
+
+jmp loop;
